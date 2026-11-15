@@ -296,6 +296,12 @@ impl Shell {
                 usage: "date".to_string(),
                 function: Self::cmd_date,
             },
+            BuiltinCommand {
+                name: "zp".to_string(),
+                description: "ZEROPOINT host CLI (manage VMs, install Ubuntu, etc.)".to_string(),
+                usage: "zp <subcommand> [args...]".to_string(),
+                function: Self::cmd_zp,
+            },
         ];
 
         for builtin in builtins {
@@ -311,6 +317,7 @@ impl Shell {
         self.aliases.insert("...".to_string(), "cd ../..".to_string());
         self.aliases.insert("h".to_string(), "history".to_string());
         self.aliases.insert("cls".to_string(), "clear".to_string());
+        self.aliases.insert("zp".to_string(), "zp".to_string());
     }
 
     pub async fn run_command(&mut self, input: &str) -> Result<String> {
@@ -864,6 +871,44 @@ impl Shell {
             .unwrap_or_default()
             .format("%a %b %d %H:%M:%S %Y")))
     }
+
+    fn cmd_zp(&mut self, args: &[&str]) -> Result<String> {
+        if args.is_empty() {
+            return Ok(
+                "ZEROPOINT Host CLI (zp)\n\
+                \nUsage: zp <subcommand> [args...]\n\
+                \nSubcommands:\n\
+                \n  install <distro>    Install a guest OS (ubuntu, alpine, debian, fedora, arch)\n\
+                \n    zp install ubuntu           # Install Ubuntu 24.04\n\
+                \n    zp install ubuntu --version 22.04 --name my-ubuntu\n\
+                \n    zp install alpine --memory 512 --disk 2\n\
+                \n    zp install debian --host-fs --host-net\n\
+                \n  list                List all VMs\n\
+                \n    zp list\n\
+                \n  start <name>        Start a VM\n\
+                \n    zp start ubuntu\n\
+                \n    zp start ubuntu --host-fs --host-net\n\
+                \n  stop <name>         Stop a VM\n\
+                \n    zp stop ubuntu\n\
+                \n    zp stop ubuntu --force\n\
+                \n  remove <name>       Remove a VM\n\
+                \n    zp remove ubuntu\n\
+                \n    zp remove ubuntu --purge\n\
+                \n  config <name>       Configure host integration\n\
+                \n    zp config ubuntu --host-fs true --host-net true\n\
+                \n    zp config ubuntu --port-forward 2222:22 --mount /host:/guest\n\
+                \n  status <name>       Show VM status\n\
+                \n    zp status ubuntu\n\
+                \n  exec <name> <cmd>   Run command in VM\n\
+                \n    zp exec ubuntu -- ls -la\n\
+                \n  create <name>       Create blank VM\n\
+                \n    zp create myos --disk 20 --memory 2048\n\
+                \nSupported Distros: ubuntu, alpine, debian, fedora, arch\n\
+                \nNote: This command runs the host-side 'zp' CLI.\n\
+                Requires qemu-system-x86_64 and qemu-img in PATH.\n\
+                Config stored in ~/.zeropoint/".to_string()
+            )
+        }
 
     pub fn is_running(&self) -> bool {
         self.running

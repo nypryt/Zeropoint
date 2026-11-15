@@ -1,0 +1,25 @@
+[package]
+name = "zp-cli"
+version = "0.1.0"
+edition = "2021"
+description = "ZEROPOINT host CLI - manage VMs and install guest OSes like Ubuntu"
+
+[[bin]]
+name = "zp"
+path = "src/main.rs"
+
+[dependencies]
+clap = { workspace = true }
+anyhow = { workspace = true }
+tokio = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+indicatif = { workspace = true }
+dirs = { workspace = true }
+tar = { workspace = true }
+flate2 = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+toml = { workspace = true }
+chrono = { workspace = true }
