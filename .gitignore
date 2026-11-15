@@ -1,0 +1,49 @@
+# ZEROPOINT .gitignore
+
+# Build artifacts
+/target/
+**/*.rs.bk
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Coverage
+coverage/
+*.profraw
+
+# Benchmarks
+benches/target/
+
+# Documentation
+docs/build/
+
+# Local config
+config.local.toml
+.env
+.env.local
+
+# Cargo
+Cargo.lock
+
+# Test output
+test-results/
+
+# Debug
+*.dSYM/

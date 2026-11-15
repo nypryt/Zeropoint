@@ -1,0 +1,43 @@
+[package]
+name = "zeropoint"
+version = "0.1.0"
+edition = "2021"
+description = "ZEROPOINT - A virtual computer inside a terminal with custom CPU, memory, VFS, assembly, shell, scheduler, and device emulation"
+
+[dependencies]
+# Terminal UI
+ratatui = { version = "0.28", features = ["crossterm"] }
+crossterm = { version = "0.28", features = ["event-stream"] }
+
+# Async runtime
+tokio = { version = "1.38", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Time and date
+chrono = { version = "0.4", features = ["serde"] }
+
+# Regex for pattern matching
+regex = "1.10"
+
+# Utilities
+anyhow = "1.0"
+thiserror = "1.0"
+parking_lot = "0.12"
+crossbeam = "0.8"
+uuid = { version = "1.8", features = ["v4", "serde"] }
+bitflags = "2.5"
+
+# For device emulation
+rand = "0.8"
+
+[[bin]]
+name = "zeropoint"
+path = "src/main.rs"
