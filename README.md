@@ -230,7 +230,7 @@ See [ISA.md](ISA.md) for complete instruction set architecture documentation.
 
 ## License
 
-MIT License - see LICENSE file for details.
+Apache 2.0 License - see LICENSE file for details.
 
 ## Contributing
 
